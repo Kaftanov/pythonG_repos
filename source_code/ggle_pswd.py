@@ -22,7 +22,7 @@ def find_Login_Data_win10():
         for name in files:
             if name == 'Login Data':
                 path = os.path.join(root, name)
-                return path
+                return path.decode(sys.getfilesystemencoding())
 
 
 # get system type
