@@ -41,7 +41,6 @@ if is_Win_10:
 else:
     path = find_Login_Data_win7()
 
-# path = path.decode('cp1251').encode('ascii', 'ignore')
 # close the Chrome
 os.system('taskkill /f /im ' + 'chrome.exe')
 
